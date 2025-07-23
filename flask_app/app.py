@@ -51,16 +51,16 @@ def preprocess_comment(comment):
 
 
 # Load the model and vectorizer from the model registry and local storage
-# def load_model_and_vectorizer(model_name, model_version, vectorizer_path):
-#     # Set MLflow tracking URI to your server
-#     mlflow.set_tracking_uri("http://ec2-54-167-108-249.compute-1.amazonaws.com:5000/")  # Replace with your MLflow tracking URI
-#     client = MlflowClient()
-#     model_uri = f"models:/{model_name}/{model_version}"
-#     model = mlflow.pyfunc.load_model(model_uri)
-#     with open(vectorizer_path, 'rb') as file:
-#         vectorizer = pickle.load(file)
+def load_model_and_vectorizer(model_name, model_version, vectorizer_path):
+    # Set MLflow tracking URI to your server
+    mlflow.set_tracking_uri("http://ec2-13-200-252-91.ap-south-1.compute.amazonaws.com:5000/")
+    client = MlflowClient()
+    model_uri = f"models:/{model_name}/{model_version}"
+    model = mlflow.pyfunc.load_model(model_uri)
+    with open(vectorizer_path, 'rb') as file:
+        vectorizer = pickle.load(file)
    
-#     return model, vectorizer
+    return model, vectorizer
 
 
 
@@ -86,7 +86,7 @@ model, vectorizer = load_model("./lgbm_model.pkl", "./tfidf_vectorizer.pkl")
 
 @app.route('/')
 def home():
-    return "Welcome to our flask api"
+    return "Welcome to the Flask API"
 
 
 
@@ -129,8 +129,6 @@ def predict_with_timestamps():
 def predict():
     data = request.json
     comments = data.get('comments')
-    print("i am the comment: ",comments)
-    print("i am the comment type: ",type(comments))
     
     if not comments:
         return jsonify({"error": "No comments provided"}), 400
@@ -326,4 +324,5 @@ def generate_trend_graph():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Localhost
+    app.run(host='0.0.0.0', port=5001, debug=True)

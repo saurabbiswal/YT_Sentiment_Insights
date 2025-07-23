@@ -113,6 +113,7 @@ def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
     """Save the model run ID and path to a JSON file."""
     try:
         # Create a dictionary with the info you want to save
+        # Useful registering the model in MLflow
         model_info = {
             'run_id': run_id,
             'model_path': model_path
@@ -127,7 +128,7 @@ def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
 
 
 def main():
-    mlflow.set_tracking_uri("http://ec2-52-91-160-21.compute-1.amazonaws.com:5000/")
+    mlflow.set_tracking_uri("http://ec2-13-200-252-91.ap-south-1.compute.amazonaws.com:5000/")
 
     mlflow.set_experiment('dvc-pipeline-runs')
     
